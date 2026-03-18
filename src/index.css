@@ -84,3 +84,47 @@
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
 }
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes waveMove {
+  0%, 100% { transform: translateX(0) scaleY(1); }
+  33% { transform: translateX(3%) scaleY(1.08); }
+  66% { transform: translateX(-3%) scaleY(0.94); }
+}
+
+@keyframes waveMove2 {
+  0%, 100% { transform: translateX(0) scaleY(1); }
+  40% { transform: translateX(-4%) scaleY(1.1); }
+  70% { transform: translateX(4%) scaleY(0.92); }
+}
+
+@keyframes waveMove3 {
+  0%, 100% { transform: translateX(0) scaleY(1); }
+  50% { transform: translateX(5%) scaleY(1.06); }
+}
+
+@keyframes bubbleRise {
+  0% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50% { opacity: 0.3; }
+  100% { transform: translateY(-100vh) scale(0.4); opacity: 0; }
+}
+
+@keyframes rayMove {
+  0%, 100% { opacity: 0.5; transform: skewX(0deg); }
+  50% { opacity: 0.9; transform: skewX(3deg); }
+}
+
+@keyframes causticsMove {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  33% { transform: translateX(10px) translateY(-5px); }
+  66% { transform: translateX(-8px) translateY(8px); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
