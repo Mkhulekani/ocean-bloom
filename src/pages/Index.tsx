@@ -46,6 +46,7 @@ const Index = () => {
       <CtaSection />
       <BookingSection />
       <FooterSection />
+      <OceanOverlay />
     </div>
   );
 };
