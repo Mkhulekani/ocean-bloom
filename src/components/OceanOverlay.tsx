@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 const OceanOverlay = () => {
   const [active, setActive] = useState(false);
-  const [audioReady, setAudioReady] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const unlockedRef = useRef(false);
   const location = useLocation();
@@ -16,11 +15,7 @@ const OceanOverlay = () => {
 
     audio.volume = 0.5;
 
-    const onCanPlay = () => setAudioReady(true);
-    audio.addEventListener("canplay", onCanPlay);
-
     return () => {
-      audio.removeEventListener("canplay", onCanPlay);
       audio.pause();
       audio.currentTime = 0;
     };
