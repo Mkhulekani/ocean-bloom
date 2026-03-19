@@ -3,21 +3,26 @@ import { useLocation } from "react-router-dom";
 
 const OceanOverlay = () => {
   const [active, setActive] = useState(false);
+  const [audioReady, setAudioReady] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const unlockedRef = useRef(false);
   const location = useLocation();
 
   const isHomePage = location.pathname === "/";
 
   useEffect(() => {
-    const audio = new Audio("/ocean.wav");
-    audio.loop = true;
+    const audio = audioRef.current;
+    if (!audio) return;
+
     audio.volume = 0.5;
-    audio.preload = "auto";
-    audioRef.current = audio;
+
+    const onCanPlay = () => setAudioReady(true);
+    audio.addEventListener("canplay", onCanPlay);
 
     return () => {
+      audio.removeEventListener("canplay", onCanPlay);
       audio.pause();
-      audio.src = "";
+      audio.currentTime = 0;
     };
   }, []);
 
@@ -30,31 +35,41 @@ const OceanOverlay = () => {
     }
   }, [isHomePage, active]);
 
-  const toggle = () => {
-    const next = !active;
-    setActive(next);
-
+  const unlockAudio = () => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || unlockedRef.current) return;
+
+    audio.muted = true;
+    audio
+      .play()
+      .then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.muted = false;
+        unlockedRef.current = true;
+      })
+      .catch(() => {
+        audio.muted = false;
+      });
+  };
+
+  const toggle = () => {
+    const audio = audioRef.current;
+    const next = !active;
+
+    if (!audio) {
+      setActive(next);
+      return;
+    }
 
     if (next) {
-      // Must start from click gesture
-      audio.play().catch(async () => {
-        try {
-          audio.muted = true;
-          await audio.play();
-          audio.pause();
-          audio.currentTime = 0;
-          audio.muted = false;
-          await audio.play();
-        } catch {
-          audio.muted = false;
-        }
-      });
+      audio.play().catch(() => {});
     } else {
       audio.pause();
       audio.currentTime = 0;
     }
+
+    setActive(next);
   };
 
   if (!isHomePage) return null;
