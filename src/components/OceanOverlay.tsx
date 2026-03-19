@@ -4,21 +4,20 @@ import { useLocation } from "react-router-dom";
 const OceanOverlay = () => {
   const [active, setActive] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const unlockedRef = useRef(false);
   const location = useLocation();
 
   const isHomePage = location.pathname === "/";
 
   useEffect(() => {
-    const audio = new Audio();
-    audio.src = "https://cdn.freesound.org/previews/467/467539_5765668-lq.mp3";
-    audio.loop = true;
+    const audio = audioRef.current;
+    if (!audio) return;
+
     audio.volume = 0.5;
-    audio.preload = "auto";
-    audioRef.current = audio;
 
     return () => {
       audio.pause();
-      audio.src = "";
+      audio.currentTime = 0;
     };
   }, []);
 
@@ -31,16 +30,41 @@ const OceanOverlay = () => {
     }
   }, [isHomePage, active]);
 
+  const unlockAudio = () => {
+    const audio = audioRef.current;
+    if (!audio || unlockedRef.current) return;
+
+    audio.muted = true;
+    audio
+      .play()
+      .then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.muted = false;
+        unlockedRef.current = true;
+      })
+      .catch(() => {
+        audio.muted = false;
+      });
+  };
+
   const toggle = () => {
+    const audio = audioRef.current;
     const next = !active;
-    setActive(next);
-    if (next && audioRef.current) {
-      // Synchronous play on user gesture to satisfy browser autoplay policy
-      audioRef.current.play().catch(() => {});
-    } else if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+
+    if (!audio) {
+      setActive(next);
+      return;
     }
+
+    if (next) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+
+    setActive(next);
   };
 
   if (!isHomePage) return null;
@@ -158,8 +182,12 @@ const OceanOverlay = () => {
         ))}
       </div>
 
+      <audio ref={audioRef} src="/ocean.wav" preload="auto" loop className="hidden" />
+
       <button
+        onPointerDown={unlockAudio}
         onClick={toggle}
+        aria-pressed={active}
         className="fixed bottom-[30px] right-[30px] z-[200] w-[52px] h-[52px] rounded-full bg-primary border-none cursor-pointer flex items-center justify-center text-2xl shadow-[0_4px_20px_rgba(141,184,0,0.4)] hover:scale-110 hover:brightness-110 transition-all"
         title={active ? "Disable Ocean Mode" : "Enable Ocean Mode"}
       >
