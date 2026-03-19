@@ -1,4 +1,4 @@
-import OceanOverlay from "@/components/OceanOverlay";
+
 
 import aboutImg from "@/assets/about.jpg";
 import svc1 from "@/assets/svc1.jpg";
@@ -46,7 +46,7 @@ const Index = () => {
       <CtaSection />
       <BookingSection />
       <FooterSection />
-      <OceanOverlay />
+      
     </div>
   );
 };

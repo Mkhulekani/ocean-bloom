@@ -1,14 +1,19 @@
 import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const OceanOverlay = () => {
   const [active, setActive] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const location = useLocation();
+
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
-    // Create audio element for ocean sound
-    const audio = new Audio("https://cdn.freesound.org/previews/467/467539_5765668-lq.mp3");
+    const audio = new Audio();
+    audio.src = "https://cdn.freesound.org/previews/467/467539_5765668-lq.mp3";
     audio.loop = true;
     audio.volume = 0.5;
+    audio.preload = "auto";
     audioRef.current = audio;
 
     return () => {
@@ -17,27 +22,37 @@ const OceanOverlay = () => {
     };
   }, []);
 
-  const toggle = () => {
-    const next = !active;
-    setActive(next);
-    if (next) {
-      audioRef.current?.play().catch(() => {});
-    } else {
+  // Stop audio when navigating away from home
+  useEffect(() => {
+    if (!isHomePage && active) {
+      setActive(false);
       audioRef.current?.pause();
       if (audioRef.current) audioRef.current.currentTime = 0;
     }
+  }, [isHomePage, active]);
+
+  const toggle = () => {
+    const next = !active;
+    setActive(next);
+    if (next && audioRef.current) {
+      // Synchronous play on user gesture to satisfy browser autoplay policy
+      audioRef.current.play().catch(() => {});
+    } else if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
   };
+
+  if (!isHomePage) return null;
 
   return (
     <>
-      {/* Ocean overlay - only on hero (position absolute inside hero won't work since it's fixed, so we cover full screen but only show on home) */}
       <div
         className={`fixed inset-0 z-[50] overflow-hidden transition-opacity duration-[1800ms] ${active ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
         style={{
           background: "linear-gradient(180deg, #001a33 0%, #002a55 15%, #003d7a 30%, #0055a0 50%, #006bb5 65%, #0085c8 80%, #00a0d4 100%)",
         }}
       >
-        {/* Top shimmer */}
         <div
           className="absolute top-0 left-0 right-0 h-1/2"
           style={{
@@ -45,8 +60,6 @@ const OceanOverlay = () => {
             animation: "shimmer 4s ease-in-out infinite",
           }}
         />
-
-        {/* Wave layers */}
         <div
           className="absolute bottom-0 -left-1/2 w-[300%] h-[60%]"
           style={{
@@ -71,8 +84,6 @@ const OceanOverlay = () => {
             animation: "waveMove3 9s ease-in-out infinite",
           }}
         />
-
-        {/* Caustics */}
         <div
           className="absolute inset-0"
           style={{
@@ -85,8 +96,6 @@ const OceanOverlay = () => {
             animation: "causticsMove 6s ease-in-out infinite",
           }}
         />
-
-        {/* Bubbles */}
         {[
           { size: 8, left: "20%", dur: "6s", delay: "0s" },
           { size: 12, left: "45%", dur: "8s", delay: "1s" },
@@ -111,8 +120,6 @@ const OceanOverlay = () => {
             }}
           />
         ))}
-
-        {/* Light rays */}
         {[
           { left: "15%", dur: "4s", delay: "0s" },
           { left: "35%", dur: "5s", delay: "1s" },
@@ -130,8 +137,6 @@ const OceanOverlay = () => {
             }}
           />
         ))}
-
-        {/* Foam sparkles near bottom */}
         {[
           { left: "25%", bottom: "35%", size: 3, dur: "3s", delay: "0s" },
           { left: "60%", bottom: "40%", size: 2, dur: "2.5s", delay: "0.5s" },
@@ -153,7 +158,6 @@ const OceanOverlay = () => {
         ))}
       </div>
 
-      {/* Toggle button */}
       <button
         onClick={toggle}
         className="fixed bottom-[30px] right-[30px] z-[200] w-[52px] h-[52px] rounded-full bg-primary border-none cursor-pointer flex items-center justify-center text-2xl shadow-[0_4px_20px_rgba(141,184,0,0.4)] hover:scale-110 hover:brightness-110 transition-all"
