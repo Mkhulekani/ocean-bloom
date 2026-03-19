@@ -187,8 +187,12 @@ const OceanOverlay = () => {
         ))}
       </div>
 
+      <audio ref={audioRef} src="/ocean.wav" preload="auto" loop className="hidden" />
+
       <button
+        onPointerDown={unlockAudio}
         onClick={toggle}
+        aria-pressed={active}
         className="fixed bottom-[30px] right-[30px] z-[200] w-[52px] h-[52px] rounded-full bg-primary border-none cursor-pointer flex items-center justify-center text-2xl shadow-[0_4px_20px_rgba(141,184,0,0.4)] hover:scale-110 hover:brightness-110 transition-all"
         title={active ? "Disable Ocean Mode" : "Enable Ocean Mode"}
       >
