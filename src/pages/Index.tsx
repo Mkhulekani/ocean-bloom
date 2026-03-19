@@ -1,4 +1,4 @@
-
+import { useState } from "react";
 
 import aboutImg from "@/assets/about.jpg";
 import svc1 from "@/assets/svc1.jpg";
@@ -28,12 +28,15 @@ import FaqSection from "@/components/FaqSection";
 import CtaSection from "@/components/CtaSection";
 import BookingSection from "@/components/BookingSection";
 import FooterSection from "@/components/FooterSection";
+import OceanOverlay from "@/components/OceanOverlay";
 
 const Index = () => {
+  const [oceanActive, setOceanActive] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <HeroSection />
+      <HeroSection oceanActive={oceanActive} />
       <AboutSection img={aboutImg} />
       <ServicesSection images={[svc1, svc2, svc3]} />
       <GallerySection images={[gal1, gal2, gal3, gal4, gal5]} />
@@ -46,7 +49,7 @@ const Index = () => {
       <CtaSection />
       <BookingSection />
       <FooterSection />
-      
+      <OceanOverlay active={oceanActive} onToggle={() => setOceanActive(prev => !prev)} />
     </div>
   );
 };
