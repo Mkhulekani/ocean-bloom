@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import oceanSound from "@/assets/ocean.wav";
 
 const OceanOverlay = () => {
   const [active, setActive] = useState(false);
