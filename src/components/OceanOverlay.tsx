@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import oceanSound from "@/assets/ocean.wav";
 
 const OceanOverlay = () => {
   const [active, setActive] = useState(false);
@@ -9,8 +10,7 @@ const OceanOverlay = () => {
   const isHomePage = location.pathname === "/";
 
   useEffect(() => {
-    const audio = new Audio();
-    audio.src = "https://cdn.freesound.org/previews/467/467539_5765668-lq.mp3";
+    const audio = new Audio(oceanSound);
     audio.loop = true;
     audio.volume = 0.5;
     audio.preload = "auto";
@@ -34,12 +34,27 @@ const OceanOverlay = () => {
   const toggle = () => {
     const next = !active;
     setActive(next);
-    if (next && audioRef.current) {
-      // Synchronous play on user gesture to satisfy browser autoplay policy
-      audioRef.current.play().catch(() => {});
-    } else if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (next) {
+      // Must start from click gesture
+      audio.play().catch(async () => {
+        try {
+          audio.muted = true;
+          await audio.play();
+          audio.pause();
+          audio.currentTime = 0;
+          audio.muted = false;
+          await audio.play();
+        } catch {
+          audio.muted = false;
+        }
+      });
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
     }
   };
 
