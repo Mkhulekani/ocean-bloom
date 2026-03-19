@@ -9,7 +9,7 @@ const OceanOverlay = () => {
   const isHomePage = location.pathname === "/";
 
   useEffect(() => {
-    const audio = new Audio(oceanSound);
+    const audio = new Audio("/ocean.wav");
     audio.loop = true;
     audio.volume = 0.5;
     audio.preload = "auto";
