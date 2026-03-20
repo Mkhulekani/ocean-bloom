@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logoSlogan from "@/assets/logo-slogan.jpeg";
 
 const navLinks = [
   { label: "About", href: "#about" },
