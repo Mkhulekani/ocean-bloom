@@ -1,12 +1,62 @@
-
+import { useEffect, useRef, useState } from "react";
 
 interface HeroSectionProps {
   oceanActive?: boolean;
 }
 
-const HeroSection = ({ oceanActive = false }: HeroSectionProps) => (
-  <section className="min-h-screen flex items-center justify-center relative overflow-hidden gradient-hero">
-    <div className="absolute inset-0 grid-overlay pointer-events-none" />
+const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
+  const video1Ref = useRef<HTMLVideoElement>(null);
+  const video2Ref = useRef<HTMLVideoElement>(null);
+  const [activeVideo, setActiveVideo] = useState(1);
+
+  useEffect(() => {
+    const v1 = video1Ref.current;
+    const v2 = video2Ref.current;
+    if (!v1 || !v2) return;
+
+    const handleV1End = () => {
+      setActiveVideo(2);
+      v2.currentTime = 0;
+      v2.play().catch(() => {});
+    };
+    const handleV2End = () => {
+      setActiveVideo(1);
+      v1.currentTime = 0;
+      v1.play().catch(() => {});
+    };
+
+    v1.addEventListener("ended", handleV1End);
+    v2.addEventListener("ended", handleV2End);
+
+    // Start first video
+    v1.play().catch(() => {});
+
+    return () => {
+      v1.removeEventListener("ended", handleV1End);
+      v2.removeEventListener("ended", handleV2End);
+    };
+  }, []);
+
+  return (
+  <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    {/* Video backgrounds */}
+    <video
+      ref={video1Ref}
+      muted
+      playsInline
+      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${activeVideo === 1 ? "opacity-100" : "opacity-0"}`}
+      src="/videos/bg1.mp4"
+    />
+    <video
+      ref={video2Ref}
+      muted
+      playsInline
+      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${activeVideo === 2 ? "opacity-100" : "opacity-0"}`}
+      src="/videos/bg2.mp4"
+    />
+    {/* Dark overlay for text readability */}
+    <div className="absolute inset-0 bg-black/50 z-[1]" />
+    <div className="absolute inset-0 grid-overlay pointer-events-none z-[2]" />
     <div className="absolute w-[280px] h-[280px] bg-primary hex-clip opacity-5 top-[8%] -right-[60px]" />
     <div className="absolute w-[160px] h-[160px] bg-primary hex-clip opacity-5 bottom-[18%] -left-[30px]" />
 
@@ -151,6 +201,7 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => (
       <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent animate-pulse-line" />
     </div>
   </section>
-);
+  );
+};
 
 export default HeroSection;
