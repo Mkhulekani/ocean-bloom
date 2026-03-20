@@ -1,4 +1,4 @@
-import logoSlogan from "@/assets/logo-slogan.jpeg";
+
 
 interface HeroSectionProps {
   oceanActive?: boolean;
