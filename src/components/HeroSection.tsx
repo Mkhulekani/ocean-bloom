@@ -42,12 +42,14 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
     {/* Video backgrounds */}
     <video
       ref={video1Ref}
+      muted
       playsInline
       className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${activeVideo === 1 ? "opacity-100" : "opacity-0"}`}
       src="/videos/bg1.mp4"
     />
     <video
       ref={video2Ref}
+      muted
       playsInline
       className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${activeVideo === 2 ? "opacity-100" : "opacity-0"}`}
       src="/videos/bg2.mp4"
