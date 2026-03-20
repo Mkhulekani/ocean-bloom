@@ -18,8 +18,9 @@ const Navbar = () => {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-[50px] py-[18px] flex justify-between items-center bg-background/95 backdrop-blur-sm border-b border-primary/10">
-        <div className="font-display text-xl font-semibold tracking-wider text-foreground">
-          THE BLACK LIQUID
+        <div className="flex items-center gap-3">
+          <img src={logoSlogan} alt="The Black Liquid (PTY) LTD" className="h-10 w-auto object-contain rounded" />
+          <span className="font-display text-xl font-semibold tracking-wider text-foreground">THE BLACK LIQUID</span>
         </div>
         <ul className="hidden md:flex gap-8 list-none">
           {navLinks.map((l) => (
