@@ -201,6 +201,7 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
       <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent animate-pulse-line" />
     </div>
   </section>
-);
+  );
+};
 
 export default HeroSection;
