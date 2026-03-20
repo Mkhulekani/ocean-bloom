@@ -8,6 +8,7 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
   const [activeVideo, setActiveVideo] = useState(1);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     const v1 = video1Ref.current;
@@ -28,7 +29,6 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
     v1.addEventListener("ended", handleV1End);
     v2.addEventListener("ended", handleV2End);
 
-    // Start first video
     v1.play().catch(() => {});
 
     return () => {
@@ -36,6 +36,12 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
       v2.removeEventListener("ended", handleV2End);
     };
   }, []);
+
+  // Sync muted state to video elements
+  useEffect(() => {
+    if (video1Ref.current) video1Ref.current.muted = isMuted;
+    if (video2Ref.current) video2Ref.current.muted = isMuted;
+  }, [isMuted]);
 
   return (
   <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
