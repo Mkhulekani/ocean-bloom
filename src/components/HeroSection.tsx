@@ -8,6 +8,7 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
   const [activeVideo, setActiveVideo] = useState(1);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     const v1 = video1Ref.current;
@@ -28,7 +29,6 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
     v1.addEventListener("ended", handleV1End);
     v2.addEventListener("ended", handleV2End);
 
-    // Start first video
     v1.play().catch(() => {});
 
     return () => {
@@ -36,6 +36,12 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
       v2.removeEventListener("ended", handleV2End);
     };
   }, []);
+
+  // Sync muted state to video elements
+  useEffect(() => {
+    if (video1Ref.current) video1Ref.current.muted = isMuted;
+    if (video2Ref.current) video2Ref.current.muted = isMuted;
+  }, [isMuted]);
 
   return (
   <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -196,6 +202,14 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
         </a>
       </div>
     </div>
+    {/* Sound toggle */}
+    <button
+      onClick={() => setIsMuted((m) => !m)}
+      className="absolute bottom-9 left-9 z-20 w-11 h-11 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-lg shadow-lg hover:scale-110 transition-transform"
+      aria-label={isMuted ? "Unmute video" : "Mute video"}
+    >
+      {isMuted ? "🔇" : "🔊"}
+    </button>
     <div className="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
       <span className="text-[0.52rem] tracking-[0.28em] text-muted-foreground uppercase">Scroll</span>
       <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent animate-pulse-line" />
