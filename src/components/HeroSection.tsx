@@ -1,3 +1,5 @@
+import logoSlogan from "@/assets/logo-slogan.jpeg";
+
 interface HeroSectionProps {
   oceanActive?: boolean;
 }
@@ -121,6 +123,7 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => (
     </div>
 
     <div className="relative z-10 text-center px-10 pt-[120px] pb-20 max-w-[860px]">
+      <img src={logoSlogan} alt="The Black Liquid (PTY) LTD" className="mx-auto mb-8 h-[120px] w-auto object-contain rounded-lg" />
       <span className="inline-block border border-primary text-primary text-[0.58rem] font-bold tracking-[0.32em] uppercase px-5 py-2 mb-[30px]">
         Corporate Wellness Redefined
       </span>
