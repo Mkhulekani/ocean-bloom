@@ -202,6 +202,14 @@ const HeroSection = ({ oceanActive = false }: HeroSectionProps) => {
         </a>
       </div>
     </div>
+    {/* Sound toggle */}
+    <button
+      onClick={() => setIsMuted((m) => !m)}
+      className="absolute bottom-9 left-9 z-20 w-11 h-11 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-lg shadow-lg hover:scale-110 transition-transform"
+      aria-label={isMuted ? "Unmute video" : "Mute video"}
+    >
+      {isMuted ? "🔇" : "🔊"}
+    </button>
     <div className="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
       <span className="text-[0.52rem] tracking-[0.28em] text-muted-foreground uppercase">Scroll</span>
       <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent animate-pulse-line" />
