@@ -42,7 +42,15 @@ const Index = () => {
       <HeroSection oceanActive={oceanActive} />
       <AboutSection img={aboutImg} />
       <ServicesSection images={[svc1, svc2, svc3]} />
-      <GallerySection images={[gal1, gal2, gal3, gal4, gal5]} />
+      <GallerySection items={[
+        { src: gal1, type: "image" },
+        { src: gal2, type: "image" },
+        { src: gal3, type: "video" },
+        { src: gal4, type: "video" },
+        { src: gal5, type: "video" },
+        { src: gal6, type: "video" },
+        { src: gal7, type: "video" },
+      ]} />
       <ProcessSection />
       <TestimonialsSection />
       <CorporateSection images={[corp1, corp2]} />
