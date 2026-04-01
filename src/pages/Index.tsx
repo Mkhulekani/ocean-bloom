@@ -9,7 +9,8 @@ import gal2 from "@/assets/gal2.jpg";
 import gal3 from "@/assets/gal3.jpg";
 import gal4 from "@/assets/gal4.jpg";
 import gal5 from "@/assets/gal5.jpg";
-import corpImg from "@/assets/corporate.jpg";
+import corp1 from "@/assets/corp1.jpeg";
+import corp2 from "@/assets/corp2.jpeg";
 import ev1 from "@/assets/ev1.jpg";
 import ev2 from "@/assets/ev2.jpg";
 import ev3 from "@/assets/ev3.jpg";
@@ -42,7 +43,7 @@ const Index = () => {
       <GallerySection images={[gal1, gal2, gal3, gal4, gal5]} />
       <ProcessSection />
       <TestimonialsSection />
-      <CorporateSection img={corpImg} />
+      <CorporateSection images={[corp1, corp2]} />
       <EventsSection images={[ev1, ev2, ev3]} />
       <BlogSection />
       <FaqSection />

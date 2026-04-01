@@ -7,15 +7,19 @@ const features = [
   { icon: "⭐", title: "Certified Team", desc: "All therapists are fully certified and professionally insured." },
 ];
 
-const CorporateSection = ({ img }: { img: string }) => (
+const CorporateSection = ({ images }: { images: string[] }) => (
   <section id="corporate" className="bg-background py-[90px] px-6 md:px-[55px]">
     <SectionLabel>Corporate Solutions</SectionLabel>
     <SectionTitle>Wellness for the Modern Workplace</SectionTitle>
     <SectionDivider />
     <div className="grid grid-cols-1 md:grid-cols-2 gap-[70px] items-center mt-[50px]">
-      <div className="relative h-[460px] overflow-hidden">
-        <img src={img} alt="Corporate wellness" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
+      <div className="grid grid-cols-1 gap-5">
+        {images.map((img, i) => (
+          <div key={i} className="relative h-[280px] overflow-hidden">
+            <img src={img} alt={`Corporate wellness ${i + 1}`} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
+          </div>
+        ))}
       </div>
       <div>
         <p className="text-[0.88rem] leading-[1.9] text-muted-foreground mb-7">
