@@ -43,7 +43,7 @@ const Index = () => {
       <GallerySection images={[gal1, gal2, gal3, gal4, gal5]} />
       <ProcessSection />
       <TestimonialsSection />
-      <CorporateSection img={corpImg} />
+      <CorporateSection images={[corp1, corp2]} />
       <EventsSection images={[ev1, ev2, ev3]} />
       <BlogSection />
       <FaqSection />
