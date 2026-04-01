@@ -6,11 +6,6 @@ import svc2 from "@/assets/svc2.jpg";
 import svc3 from "@/assets/svc3.jpg";
 import gal1 from "@/assets/gal1.jpeg";
 import gal2 from "@/assets/gal2.jpeg";
-import gal3 from "@/assets/gal3.mp4";
-import gal4 from "@/assets/gal4.mp4";
-import gal5 from "@/assets/gal5.mp4";
-import gal6 from "@/assets/gal6.mp4";
-import gal7 from "@/assets/gal7.mp4";
 import corp1 from "@/assets/corp1.jpeg";
 import corp2 from "@/assets/corp2.jpeg";
 import ev1 from "@/assets/ev1.jpg";
@@ -45,11 +40,11 @@ const Index = () => {
       <GallerySection items={[
         { src: gal1, type: "image" },
         { src: gal2, type: "image" },
-        { src: gal3, type: "video" },
-        { src: gal4, type: "video" },
-        { src: gal5, type: "video" },
-        { src: gal6, type: "video" },
-        { src: gal7, type: "video" },
+        { src: "/gallery/gal3.mp4", type: "video" },
+        { src: "/gallery/gal4.mp4", type: "video" },
+        { src: "/gallery/gal5.mp4", type: "video" },
+        { src: "/gallery/gal6.mp4", type: "video" },
+        { src: "/gallery/gal7.mp4", type: "video" },
       ]} />
       <ProcessSection />
       <TestimonialsSection />
