@@ -40,11 +40,11 @@ const Index = () => {
       <GallerySection items={[
         { src: gal1, type: "image" },
         { src: gal2, type: "image" },
-        { src: gal3, type: "video" },
-        { src: gal4, type: "video" },
-        { src: gal5, type: "video" },
-        { src: gal6, type: "video" },
-        { src: gal7, type: "video" },
+        { src: "/gallery/gal3.mp4", type: "video" },
+        { src: "/gallery/gal4.mp4", type: "video" },
+        { src: "/gallery/gal5.mp4", type: "video" },
+        { src: "/gallery/gal6.mp4", type: "video" },
+        { src: "/gallery/gal7.mp4", type: "video" },
       ]} />
       <ProcessSection />
       <TestimonialsSection />
