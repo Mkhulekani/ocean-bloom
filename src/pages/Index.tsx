@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import aboutImg from "@/assets/about.jpg";
+import aboutImg from "@/assets/about.webp";
 import svc1 from "@/assets/svc1.jpg";
 import svc2 from "@/assets/svc2.jpg";
 import svc3 from "@/assets/svc3.jpg";
