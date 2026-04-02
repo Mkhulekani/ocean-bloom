@@ -1,4 +1,6 @@
 import { SectionLabel, SectionTitle, SectionDivider } from "./SectionParts";
+import contactPage1 from "@/assets/contact-page1.jpg";
+import contactPage2 from "@/assets/contact-page2.jpg";
 
 const BookingSection = () => (
   <section id="booking" className="bg-card py-[90px] px-6 md:px-[55px]">
@@ -11,21 +13,17 @@ const BookingSection = () => (
         <p className="text-[0.82rem] leading-[1.9] text-muted-foreground mb-7">
           Whether you're looking for regular on-site massage, a one-time wellness event, or a comprehensive corporate wellness program, we're here to help.
         </p>
-        <div className="flex flex-col gap-[18px]">
-          {[
-            { icon: "📍", label: "Location", value: "Johannesburg, South Africa" },
-            { icon: "📞", label: "Phone", value: "+27 (0) 11 234 5678" },
-            { icon: "✉️", label: "Email", value: "info@theblackliquid.co.za" },
-            { icon: "🕐", label: "Hours", value: "Mon–Fri: 7:00 AM – 6:00 PM" },
-          ].map((c) => (
-            <div key={c.label} className="flex items-start gap-4">
-              <div className="w-[42px] h-[42px] bg-primary/10 border border-primary/20 flex items-center justify-center text-lg shrink-0">{c.icon}</div>
-              <div>
-                <strong className="block text-[0.7rem] font-bold tracking-[0.15em] uppercase text-primary mb-1">{c.label}</strong>
-                <span className="text-[0.8rem] text-muted-foreground">{c.value}</span>
-              </div>
-            </div>
-          ))}
+        <div className="grid grid-cols-2 gap-4">
+          <img
+            src={contactPage1}
+            alt="The Black Liquid - Healing Through Nature - Contact: 0781112226, info@theblackliquid.com, Cape Town"
+            className="w-full h-auto rounded-lg shadow-lg border border-primary/10 object-cover"
+          />
+          <img
+            src={contactPage2}
+            alt="The Black Liquid - Mobile Wellness That Comes To You - Contact: 0781112226, info@theblackliquid.com, Cape Town"
+            className="w-full h-auto rounded-lg shadow-lg border border-primary/10 object-cover"
+          />
         </div>
       </div>
       <div className="bg-green-subtle border border-primary/10 p-10">
