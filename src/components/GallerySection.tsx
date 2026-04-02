@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { X, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { SectionLabel, SectionTitle, SectionDivider } from "./SectionParts";
 
@@ -14,7 +14,22 @@ const GallerySection = ({ items }: { items: GalleryItem[] }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const openItem = (i: number) => setActiveIndex(i);
-  const close = () => setActiveIndex(null);
+  const close = () => {
+    if (videoRef.current) videoRef.current.pause();
+    setActiveIndex(null);
+  };
+
+  // Close lightbox on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (activeIndex === null) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "ArrowRight") goNext();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [activeIndex]);
   const goPrev = () => setActiveIndex(prev => (prev !== null && prev > 0 ? prev - 1 : items.length - 1));
   const goNext = () => setActiveIndex(prev => (prev !== null && prev < items.length - 1 ? prev + 1 : 0));
 
