@@ -1,9 +1,14 @@
 import { useState } from "react";
 
 import aboutImg from "@/assets/about.webp";
-import svc1 from "@/assets/svc1.jpg";
-import svc2 from "@/assets/svc2.jpg";
-import svc3 from "@/assets/svc3.jpg";
+import svc1 from "@/assets/svc1.webp";
+import svc2 from "@/assets/svc2.jpeg";
+import svc3 from "@/assets/svc3.webp";
+import svc4 from "@/assets/svc4.jpg";
+import svc5 from "@/assets/svc5.jpg";
+import svc6 from "@/assets/svc6.jpg";
+import svc7 from "@/assets/svc7.webp";
+import svc8 from "@/assets/svc8.avif";
 import gal1 from "@/assets/gal1.jpeg";
 import gal2 from "@/assets/gal2.jpeg";
 import corp1 from "@/assets/corp1.jpeg";
@@ -36,7 +41,11 @@ const Index = () => {
       <Navbar />
       <HeroSection oceanActive={oceanActive} />
       <AboutSection img={aboutImg} />
-      <ServicesSection images={[svc1, svc2, svc3]} />
+      <ServicesSection images={[
+        [svc1, svc4, svc6],
+        [svc2, svc8, svc5],
+        [svc3, svc7, svc1],
+      ]} />
       <GallerySection items={[
         { src: gal1, type: "image" },
         { src: gal2, type: "image" },
@@ -61,4 +70,3 @@ const Index = () => {
 };
 
 export default Index;
-
