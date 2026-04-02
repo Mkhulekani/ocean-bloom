@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { X, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { SectionLabel, SectionTitle, SectionDivider } from "./SectionParts";
 
